@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">PharosTask</string>
     <string name="Key">AIzaSyBUAKrIgWRaLW8j8PFp--QbhFnxo9Ib7ck</string>
+    <string name="noData">No data found</string>
+    <string name="servererror">Server error .. try again later</string>
 </resources>

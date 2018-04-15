@@ -10,7 +10,10 @@ import khaled.ahmed.pharostask.Objects.Cities;
 
 public interface HomeView {
 
-    void SetData(ArrayList<Cities> cities);
+
+    void SetDataFirstTime(ArrayList<Cities> list);
+
+    void SetDataReload(ArrayList<Cities> list);
 
     void SetDataLocal(ArrayList<Cities> cities);
 

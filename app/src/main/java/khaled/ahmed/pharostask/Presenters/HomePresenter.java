@@ -26,7 +26,7 @@ public class HomePresenter {
     private ArrayList<Cities> datalist;
     private Context context;
 
-    public HomePresenter(HomeView view,Context context) {
+    public HomePresenter(HomeView view, Context context) {
         this.view = view;
         this.context = context;
         page = 1;
@@ -47,12 +47,17 @@ public class HomePresenter {
     public void getServerData() {
         APIService service = RetrofitClient.getService();
         Call<ArrayList<Cities>> call = service.getData(page);
-        call.request().url();
         call.enqueue(new Callback<ArrayList<Cities>>() {
             @Override
             public void onResponse(Call<ArrayList<Cities>> call, Response<ArrayList<Cities>> response) {
                 if (response.code() == 200) {
-                    view.SetData(response.body());
+                    if (page == 1) {
+                        view.SetDataFirstTime(response.body());
+                        page++;
+                    } else {
+                        view.SetDataReload(response.body());
+                        page++;
+                    }
                 } else {
                     view.ServerError();
                 }
@@ -104,5 +109,7 @@ public class HomePresenter {
         }
     }
 
-
+    public int getPage() {
+        return page;
+    }
 }

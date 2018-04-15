@@ -15,8 +15,6 @@ public class Cities {
         this.country = country;
         this.name = name;
         this.coord = coord;
-        imageUrl = "http://maps.google.com/maps/api/staticmap?zoom=15&size=600x600&sensor=false&" +
-                "markers=color:bluezlabel:S|" + coord.getLat() + "," + coord.getLon();
     }
 
     public String getCountry() {
@@ -32,6 +30,8 @@ public class Cities {
     }
 
     public String getImageUrl() {
+        imageUrl = "http://maps.google.com/maps/api/staticmap?zoom=15&size=300x300&sensor=false&" +
+                "markers=color:bluezlabel:S|" + coord.getLat() + "," + coord.getLon();
         return imageUrl;
     }
 }
