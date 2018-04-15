@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">PharosTask</string>
-    <string name="Key">AIzaSyBUAKrIgWRaLW8j8PFp--QbhFnxo9Ib7ck</string>
+    <string name="Key">AIzaSyBfOQM-S3esNge72uXRhq3FB4C2EoEb3Z8</string>
     <string name="noData">No data found</string>
     <string name="servererror">Server error .. try again later</string>
+    <string name="title_activity_maps">City on map</string>
 </resources>

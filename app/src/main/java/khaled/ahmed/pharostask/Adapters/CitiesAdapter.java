@@ -1,6 +1,7 @@
 package khaled.ahmed.pharostask.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 
 import khaled.ahmed.pharostask.Objects.Cities;
 import khaled.ahmed.pharostask.R;
+import khaled.ahmed.pharostask.UI.MapsActivity;
 
 /**
  * Created by ah.khaled1994@gmail.com on 4/15/2018.
@@ -78,9 +80,17 @@ public class CitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ViewHolder) {
-            Cities city = list.get(position);
+            final Cities city = list.get(position);
             Picasso.with(context).load(city.getImageUrl()).into(((ViewHolder) holder).cityImage);
             ((ViewHolder) holder).name.setText(city.getName());
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    context.startActivity(new Intent(context, MapsActivity.class)
+                            .putExtra("lat", city.getCoord().getLat())
+                            .putExtra("lng", city.getCoord().getLon()));
+                }
+            });
         }
     }
 

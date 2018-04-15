@@ -5,6 +5,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import khaled.ahmed.pharostask.Objects.Cities;
 import khaled.ahmed.pharostask.RestAPI.APIService;
@@ -52,10 +54,10 @@ public class HomePresenter {
             public void onResponse(Call<ArrayList<Cities>> call, Response<ArrayList<Cities>> response) {
                 if (response.code() == 200) {
                     if (page == 1) {
-                        view.SetDataFirstTime(response.body());
+                        view.SetDataFirstTime(Sort(response.body()));
                         page++;
                     } else {
-                        view.SetDataReload(response.body());
+                        view.SetDataReload(Sort(response.body()));
                         page++;
                     }
                 } else {
@@ -74,8 +76,12 @@ public class HomePresenter {
      * this method call model to get cities from local in case of no internet connection
      */
     public void getLocalData() {
-        datalist = SharedData.getInstance().Edit(context).getCities();
-        view.SetDataLocal(datalist);
+        if (SharedData.getInstance().Edit(context   ).getCities() != null) {
+            datalist = SharedData.getInstance().Edit(context).getCities();
+            view.SetDataLocal(datalist);
+        } else {
+            view.SetDataLocal(datalist);
+        }
     }
 
     /**
@@ -107,6 +113,16 @@ public class HomePresenter {
         } else {
             return false;
         }
+    }
+
+    private ArrayList<Cities> Sort(ArrayList<Cities> data) {
+        Collections.sort(data, new Comparator<Cities>() {
+            @Override
+            public int compare(Cities cities, Cities t1) {
+                return cities.getName().compareToIgnoreCase(t1.getName());
+            }
+        });
+        return data;
     }
 
     public int getPage() {

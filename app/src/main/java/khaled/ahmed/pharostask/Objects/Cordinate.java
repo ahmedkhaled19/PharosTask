@@ -14,11 +14,11 @@ public class Cordinate {
         this.lon = lon;
     }
 
-    public String getLat() {
-        return lat;
+    public double getLat() {
+        return Double.valueOf(lat);
     }
 
-    public String getLon() {
-        return lon;
+    public double getLon() {
+        return Double.valueOf(lon);
     }
 }

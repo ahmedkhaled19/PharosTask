@@ -9,24 +9,23 @@
     app:cardElevation="2dp">
 
     <LinearLayout
-        android:padding="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="8dp">
 
         <TextView
             android:id="@+id/city_name"
             style="@style/TextAppearance.AppCompat.Medium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Alexandria" />
+            android:layout_marginBottom="8dp" />
 
         <ImageView
             android:id="@+id/city_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scaleType="centerCrop" />
-
     </LinearLayout>
 
 

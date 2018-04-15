@@ -39,10 +39,12 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
         RecyclerView.LayoutManager manager = new LinearLayoutManager(HomeActivity.this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(manager);
         initializeAdapter();
-        presenter = new HomePresenter(this, HomeActivity.this);
-        presenter.getData();
     }
 
+    /**
+     * in this method we initialize adapter
+     * then we initialize presenter and get data
+     */
     private void initializeAdapter() {
         dataList = new ArrayList<>();
         adapter = new CitiesAdapter(HomeActivity.this, dataList, recyclerView, progressBar);
@@ -59,6 +61,8 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
                 }
             }
         });
+        presenter = new HomePresenter(this, HomeActivity.this);
+        presenter.getData();
     }
 
     /**
@@ -101,7 +105,14 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
      */
     @Override
     public void SetDataLocal(ArrayList<Cities> cities) {
-
+        dataList = cities;
+        if (dataList.isEmpty() || dataList.size() == 0 && active) {
+            progressBar.setVisibility(View.GONE);
+            noData.setVisibility(View.VISIBLE);
+        } else {
+            progressBar.setVisibility(View.GONE);
+            adapter.setItems(dataList, false);
+        }
     }
 
     @Override
