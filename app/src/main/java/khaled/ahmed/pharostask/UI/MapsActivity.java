@@ -46,9 +46,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Add a marker in the place where user click on adapter 
+        // Add a marker in the place where user click on adapter
         LatLng position = new LatLng(Lat, Lng);
         mMap.addMarker(new MarkerOptions().position(position));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 15));
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

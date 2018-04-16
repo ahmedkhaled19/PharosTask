@@ -18,4 +18,6 @@ public interface HomeView {
     void SetDataLocal(ArrayList<Cities> cities);
 
     void ServerError();
+
+    void showSnackbar();
 }

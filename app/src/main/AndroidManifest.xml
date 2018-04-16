@@ -24,6 +24,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".UI.HomeActivity"
+            android:theme="@style/NoBar"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -44,13 +45,14 @@
             android:value="@string/google_maps_key" />
 
         <activity
+            android:theme="@style/NoBar"
             android:name=".UI.MapsActivity"
             android:label="@string/title_activity_maps"
-            android:screenOrientation="portrait">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="khaled.ahmed.pharostask.UI.HomeActivity" />
-        </activity>
+            android:screenOrientation="portrait" />
+        <activity
+            android:theme="@style/NoBar"
+            android:name=".UI.SearchActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

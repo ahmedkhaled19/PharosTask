@@ -82,7 +82,7 @@ public class CitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         if (holder instanceof ViewHolder) {
             final Cities city = list.get(position);
             Picasso.with(context).load(city.getImageUrl()).into(((ViewHolder) holder).cityImage);
-            ((ViewHolder) holder).name.setText(city.getName());
+            ((ViewHolder) holder).name.setText(city.getName() + "," + city.getCountry());
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -117,6 +117,11 @@ public class CitiesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     @Override
     public int getItemCount() {
         return list.size();
+    }
+
+    public void clear() {
+        list.clear();
+        notifyDataSetChanged();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

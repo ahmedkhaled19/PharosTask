@@ -76,28 +76,27 @@ public class HomePresenter {
      * this method call model to get cities from local in case of no internet connection
      */
     public void getLocalData() {
-        if (SharedData.getInstance().Edit(context   ).getCities() != null) {
+        if (SharedData.getInstance().Edit(context).getCities() != null) {
             datalist = SharedData.getInstance().Edit(context).getCities();
             view.SetDataLocal(datalist);
         } else {
             view.SetDataLocal(datalist);
         }
+        view.showSnackbar();
     }
 
     /**
      * to save array list of cities to shared preferences
      */
-    private void saveLocal() {
-        ArrayList<Cities> backUp;
-        if (SharedData.getInstance().getCities() != null) {
+    private void saveLocal(ArrayList<Cities> cities) {
+        ArrayList<Cities> backUp = new ArrayList<>();
+        if (SharedData.getInstance().Edit(context).getCities() != null) {
             backUp = SharedData.getInstance().getCities();
-        } else {
-            backUp = new ArrayList<>();
         }
         if (page == 1) {
             backUp.clear();
         }
-        backUp.addAll(datalist);
+        backUp.addAll(cities);
         SharedData.getInstance().Edit(context).saveCities(backUp);
     }
 
@@ -122,6 +121,7 @@ public class HomePresenter {
                 return cities.getName().compareToIgnoreCase(t1.getName());
             }
         });
+        saveLocal(data);
         return data;
     }
 

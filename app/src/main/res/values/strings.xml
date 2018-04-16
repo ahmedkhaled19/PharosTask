@@ -4,4 +4,8 @@
     <string name="noData">No data found</string>
     <string name="servererror">Server error .. try again later</string>
     <string name="title_activity_maps">City on map</string>
+    <string name="searchhint">Search...</string>
+    <string name="noResultData">No results found</string>
+    <string name="nointernet">No internet connection</string>
+    <string name="retry">Retry</string>
 </resources>

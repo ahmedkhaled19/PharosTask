@@ -1,11 +1,17 @@
 package khaled.ahmed.pharostask.UI;
 
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,17 +33,28 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
     private RecyclerView recyclerView;
     private CitiesAdapter adapter;
     private ArrayList<Cities> dataList;
+    private ImageView search;
+    private Snackbar snackbar = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
+        Toolbar toolbar = findViewById(R.id.hometoolbar);
+        toolbar.setTitleTextColor(Color.WHITE);
+        setSupportActionBar(toolbar);
         noData = findViewById(R.id.nodata_txt);
         progressBar = findViewById(R.id.progress_bar);
         recyclerView = findViewById(R.id.home_recycler);
         RecyclerView.LayoutManager manager = new LinearLayoutManager(HomeActivity.this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(manager);
+        search = toolbar.findViewById(R.id.toolbar_search);
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(HomeActivity.this, SearchActivity.class));
+            }
+        });
         initializeAdapter();
     }
 
@@ -76,6 +93,10 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
             noData.setVisibility(View.VISIBLE);
         } else {
             progressBar.setVisibility(View.INVISIBLE);
+            noData.setVisibility(View.GONE);
+            if (snackbar != null) {
+                snackbar.dismiss();
+            }
             dataList.addAll(list);
             adapter.setItems(dataList, false);
         }
@@ -118,6 +139,26 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
     @Override
     public void ServerError() {
         Toast.makeText(this, getString(R.string.servererror), Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void showSnackbar() {
+        RelativeLayout layout = findViewById(R.id.relative);
+        snackbar = Snackbar
+                .make(layout, getString(R.string.nointernet), Snackbar.LENGTH_INDEFINITE)
+                .setAction(getString(R.string.retry), new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        snackbar.dismiss();
+                        presenter.getData();
+                    }
+                });
+        // Changing action button text color
+        View sbView = snackbar.getView();
+        TextView textView = sbView.findViewById(android.support.design.R.id.snackbar_text);
+        textView.setTextColor(Color.WHITE);
+        snackbar.setActionTextColor(Color.RED);
+        snackbar.show();
     }
 
     @Override
